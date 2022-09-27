@@ -7,7 +7,7 @@ info:
     email: chungckao@gmail.com
   version: "1.0"
 servers:
-  - url: https://localhost:3001/api/v1
+  - url: http://localhost:3000/api/v1
     variables: {}
 paths:
   /auth/register:
@@ -18,13 +18,13 @@ paths:
       operationId: RegisterUser
       parameters: []
       requestBody:
-        description: ""
+        description: Username, email and password
         content:
           application/json:
             schema:
               $ref: ""
             example:
-              name: Chung Kao
+              username: Chung Kao
               email: chungckao@gmail.com
               password: San#3Dragons?
         required: true
@@ -42,7 +42,7 @@ paths:
       operationId: LoginUser
       parameters: []
       requestBody:
-        description: ""
+        description: User email and password
         content:
           application/json:
             schema:
@@ -65,14 +65,17 @@ paths:
       operationId: CreateJob
       parameters: []
       requestBody:
-        description: ""
+        description: Company and position are required
         content:
           application/json:
             schema:
               $ref: ""
             example:
-              company: zoom
-              position: ui designer
+              company: Zoom
+              position: UI Designer
+              location: Mountain View, CA
+              contact: Mary Alice
+              email: maryalice@zoom.com
         required: true
       responses:
         "200":
@@ -136,15 +139,18 @@ paths:
           schema:
             type: string
       requestBody:
-        description: ""
+        description: Company and position are required
         content:
           application/json:
             schema:
               $ref: ""
             example:
-              company: paypal
-              position: full-stack engineer
-              status: interview
+              company: PayPal
+              position: Full-stack Engineer
+              location: San Jose, CA
+              contact: John Gannon
+              email: johngannon@paypal.com
+              status: interviewed
         required: true
       responses:
         "200":
@@ -180,8 +186,6 @@ components:
       scheme: bearer
 security: []
 tags:
-  - name: Misc
-    description: ""
   - name: Auth
     description: ""
   - name: Jobs
