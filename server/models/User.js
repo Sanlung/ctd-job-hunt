@@ -3,11 +3,12 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const UserSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
-    required: [true, "Please provide a name"],
-    minLength: 3,
-    maxLength: 10,
+    required: [true, "Please provide a username"],
+    minLength: 6,
+    maxLength: 15,
+    unique: true,
   },
   email: {
     type: String,
@@ -21,7 +22,12 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Please provide a password"],
-    minLength: 6,
+    match: [
+      /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@$%&?]).{8,32}$/,
+      "Invalid password. Must have at least one lowercase character, one uppercase character, one digit and one special character (!@$%&?). ",
+    ],
+    minLength: 8,
+    maxLength: 32,
   },
 });
 
@@ -34,7 +40,7 @@ UserSchema.methods.createJWT = function () {
   return jwt.sign(
     {
       userId: this._id,
-      name: this.name,
+      username: this.username,
     },
     process.env.JWT_SECRET,
     {expiresIn: process.env.JWT_LIFETIME}

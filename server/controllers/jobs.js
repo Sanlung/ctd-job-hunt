@@ -16,7 +16,7 @@ const getJob = async (req, res) => {
     _id: jobId,
     createdBy: userId,
   });
-  if (!job) throw new NotFoundError(`No job found with id ${jobId}`);
+  if (!job) throw new NotFoundError(`No job found with ID no. ${jobId}`);
   res.status(StatusCodes.OK).json({job});
 };
 
@@ -39,7 +39,7 @@ const updateJob = async (req, res) => {
     req.body,
     {new: true, runValidators: true}
   );
-  if (!job) throw new NotFoundError(`No job found with id ${jobId}`);
+  if (!job) throw new NotFoundError(`No job found with ID no. ${jobId}`);
   res.status(StatusCodes.OK).json({job});
 };
 
@@ -52,8 +52,10 @@ const deleteJob = async (req, res) => {
     _id: jobId,
     createdBy: userId,
   });
-  if (!job) throw new NotFoundError(`No job found with id ${jobId}`);
-  res.status(StatusCodes.OK).send();
+  if (!job) throw new NotFoundError(`No job found with ID no. ${jobId}`);
+  res
+    .status(StatusCodes.OK)
+    .json({msg: `Job ID no. ${jobId} has been deleted`});
 };
 
 module.exports = {

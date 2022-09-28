@@ -1,6 +1,6 @@
 <p align="center"><img src="./assets/site-screenshot.jpg" alt="site screenshot" /></p>
 <h2 align="center">JobHunt App</h2>
-<h4 align="center">A Personal Job Application Tracker</h4>
+<h4 align="center">A Personal Job Application Organizer/Tracker</h4>
 <p align="center">for Code the Dream, Orange Alpaca 2022</p>
 <p align="left"><img width="150" src="./assets/ctd-logo.jpeg" /></p>
 
@@ -17,3 +17,9 @@ JobHunt, a job application oraganizer/tracker, is a MERN stack web app completed
 ### License
 
 MIT license
+
+At least one digit [0-9]
+At least one lowercase character [a-z]
+At least one uppercase character [A-Z]
+At least one special character [*.!@#$%^&(){}[]:;<>,.?/~_+-=|\]
+At least 8 characters in length, but no more than 32.

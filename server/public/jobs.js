@@ -19,7 +19,14 @@ const buildJobsTable = async (jobsTable, jobsTableHeader, token, message) => {
         for (let i = 0; i < data.count; i++) {
           let editButton = `<td><button type="button" class="edit-button" data-id=${data.jobs[i]._id}>Edit</button></td>`;
           let deleteButton = `<td><button type="button" class="delete-button" data-id=${data.jobs[i]._id}>Delete</button></td>`;
-          let rowHTML = `<td>${data.jobs[i].company}</td><td>${data.jobs[i].position}</td><td>${data.jobs[i].status}</td>${editButton}${deleteButton}`;
+          let status = data.jobs[i].status;
+          let rowHTML = `<td>${data.jobs[i].company}</td><td>${
+            data.jobs[i].position
+          }</td><td>${data.jobs[i].location}</td><td>${
+            data.jobs[i].contact
+          }</td><td>${data.jobs[i].email}</td><td>${
+            status.substr(0, 1).toUpperCase() + status.substr(1)
+          }</td>${editButton}${deleteButton}`;
           let rowEntry = document.createElement("tr");
           rowEntry.innerHTML = rowHTML;
           children.push(rowEntry);
@@ -49,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginButton = document.getElementById("login-button");
   const loginCancel = document.getElementById("login-cancel");
   const registerDiv = document.getElementById("register-div");
-  const name = document.getElementById("name");
+  const username = document.getElementById("username");
   const email1 = document.getElementById("email1");
   const password1 = document.getElementById("password1");
   const password2 = document.getElementById("password2");
@@ -62,6 +69,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const editJob = document.getElementById("edit-job");
   const company = document.getElementById("company");
   const position = document.getElementById("position");
+  const location = document.getElementById("location");
+  const contact = document.getElementById("contact");
+  const email2 = document.getElementById("email2");
   const status = document.getElementById("status");
   const addingJob = document.getElementById("adding-job");
   const jobsMessage = document.getElementById("jobs-message");
@@ -133,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
       showing = loginRegister;
       email.value = "";
       password.value = "";
-      name.value = "";
+      username.value = "";
       email1.value = "";
       password1.value = "";
       password2.value = "";
@@ -150,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await response.json();
 
         if (response.status === 200) {
-          message.textContent = `Login successful. Welcome ${data.user.name}`;
+          message.textContent = `Login successful. Welcome ${data.user.username}`;
           token = data.token;
           localStorage.setItem("token", token);
           showing.style.display = "none";
@@ -176,7 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              name: name.value,
+              username: username.value,
               email: email1.value,
               password: password1.value,
             }),
@@ -184,12 +194,12 @@ document.addEventListener("DOMContentLoaded", () => {
           const data = await response.json();
 
           if (response.status === 201) {
-            message.textContent = `Registration successful. Welcome ${data.user.name}`;
+            message.textContent = `Registration successful. Welcome ${data.user.username}`;
             token = data.token;
             localStorage.setItem("token", token);
             showing.style.display = "none";
             document.dispatchEvent(customEvent);
-            name.value = "";
+            username.value = "";
             email.value = "";
             password1 = "";
             password2 = "";
@@ -210,13 +220,19 @@ document.addEventListener("DOMContentLoaded", () => {
       delete editJob.dataset.id;
       company.value = "";
       position.value = "";
-      status.value = "pending";
+      location.value = "";
+      contact.value = "";
+      email2.value = "";
+      status.value = "Eligible";
       addingJob.textContent = "Add";
     } else if (e.target === editCancel) {
       showing.style.display = "none";
       company.value = "";
       position.value = "";
-      status.value = "pending";
+      location.value = "";
+      contact.value = "";
+      email2.value = "";
+      status.value = "Eligible";
       document.dispatchEvent(customEvent);
     } else if (e.target === addingJob) {
       if (!editJob.dataset.id) {
@@ -232,6 +248,9 @@ document.addEventListener("DOMContentLoaded", () => {
             body: JSON.stringify({
               company: company.value,
               position: position.value,
+              location: location.value,
+              contact: contact.value,
+              email: email2.value,
               status: status.value,
             }),
           });
@@ -243,7 +262,10 @@ document.addEventListener("DOMContentLoaded", () => {
             document.dispatchEvent(customEvent);
             company.value = "";
             position.value = "";
-            status.value = "pending";
+            location.value = "";
+            contact.value = "";
+            email2.value = "";
+            status.value = "Eligible";
           } else {
             message.textContent = data.msg;
           }
@@ -265,6 +287,9 @@ document.addEventListener("DOMContentLoaded", () => {
             body: JSON.stringify({
               company: company.value,
               position: position.value,
+              location: location.value,
+              contact: contact.value,
+              email: email2.value,
               status: status.value,
             }),
           });
@@ -275,7 +300,10 @@ document.addEventListener("DOMContentLoaded", () => {
             showing.style.display = "none";
             company.value = "";
             position.value = "";
-            status.value = "pending";
+            location.value = "";
+            contact.value = "";
+            email2.value = "";
+            status.value = "Eligible";
             document.dispatchEvent(customEvent);
           } else {
             message.textContent = data.msg;
@@ -301,6 +329,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (response.status === 200) {
           company.value = data.job.company;
           position.value = data.job.position;
+          location.value = data.job.location;
+          contact.value = data.job.contact;
+          email2.value = data.job.email;
           status.value = data.job.status;
           addingJob.textContent = "Update";
           showing.style.display = "none";
