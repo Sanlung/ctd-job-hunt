@@ -68,8 +68,9 @@ const SignUpForm = ({onSignUp, onSetMessage}) => {
           <FaUnlockAlt />
         </InputWithLabel>
         <p className='h6 mb-4 text-secondary'>
-          Username should be 6 to 15 characters, and password at least one of
-          uppercase, lowercase, digit and special (!@$%&?) character.
+          Username should be 6 to 15 characters, and password 8 to 32 characters
+          with at least one of uppercase, lowercase, digit and special (!@$%&?)
+          characters.
         </p>
         <Button
           as='input'
