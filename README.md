@@ -6,6 +6,7 @@
 ![react version](./assets/react-version.svg) ![node version](./assets/node-version.svg) ![express version](./assets/express-version.svg) ![mongoose version](./assets/mongoose-version.svg) ![mit license](./assets/mit-license.svg)
 
 <p align="left"><img width="150" src="./assets/ctd-logo.jpeg" /></p>
+
 ## About
 
 Job Hunt, a job application oraganizer-tracker, is a MERN stack web app completed to fulfill the requirement of the Code the Dream School, Orange Alpaca Node.js/Express full-stack curriculum. The app uses Node.js and the Express framework for back-end api and MongoDB for data storage. A React.js front end bootstrapped with `create-react-app` serves to interact with the client.
@@ -55,6 +56,8 @@ $ npm start
 ```
 
 command at the root directory, and it will build the React app first and then start the Express server that serves it, on the same port localhost:3001.
+
+### Usage
 
 The app has minimalist appearance and interface that allows the user to record job application information on a table, by clicking on the add (✚) button on the bottom left of the table:
 
