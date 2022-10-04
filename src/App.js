@@ -255,6 +255,7 @@ const App = () => {
                 />
               }
             />
+            <Route path='' element={<NotFound />} />
           </Route>
           <Route path='jobs'>
             <Route
