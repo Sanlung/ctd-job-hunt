@@ -13,7 +13,7 @@ const App = () => {
   const [user, setUser] = useSemiPersistentState("user", null);
   const [jobs, setJobs] = useState(["loading"]);
   const [message, setMessage] = useState("");
-  const urlPrefix = `http://localhost:3001`;
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   let navigate = useNavigate();
 
   //Message modal actions
@@ -36,7 +36,7 @@ const App = () => {
   const getJobs = useCallback(async () => {
     if (token) {
       try {
-        const response = await fetch(`${urlPrefix}/api/v1/jobs`, {
+        const response = await fetch(`${BASE_URL}/api/v1/jobs`, {
           method: "GET",
           headers: {
             "Content-Type": "application-json",
@@ -54,7 +54,7 @@ const App = () => {
         setMessage("A communications error occurred.");
       }
     }
-  }, [token, urlPrefix]);
+  }, [token, BASE_URL]);
 
   useEffect(() => {
     getJobs();
@@ -63,7 +63,7 @@ const App = () => {
   // Sign up
   const register = async (username, email, password) => {
     try {
-      const response = await fetch(`${urlPrefix}/api/v1/auth/register`, {
+      const response = await fetch(`${BASE_URL}/api/v1/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -93,7 +93,7 @@ const App = () => {
   // Login
   const login = async (email, password) => {
     try {
-      const response = await fetch(`${urlPrefix}/api/v1/auth/login`, {
+      const response = await fetch(`${BASE_URL}/api/v1/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -136,7 +136,7 @@ const App = () => {
     status
   ) => {
     try {
-      const response = await fetch(`${urlPrefix}/api/v1/jobs/`, {
+      const response = await fetch(`${BASE_URL}/api/v1/jobs/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -176,7 +176,7 @@ const App = () => {
     status
   ) => {
     try {
-      const response = await fetch(`${urlPrefix}/api/v1/jobs/${jobId}`, {
+      const response = await fetch(`${BASE_URL}/api/v1/jobs/${jobId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -208,7 +208,7 @@ const App = () => {
   //Delete a job record
   const removeJob = async (jobId) => {
     try {
-      const response = await fetch(`${urlPrefix}/api/v1/jobs/${jobId}`, {
+      const response = await fetch(`${BASE_URL}/api/v1/jobs/${jobId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

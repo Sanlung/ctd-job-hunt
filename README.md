@@ -49,13 +49,13 @@ In development mode you may run:
 $ npm run dev
 ```
 
-in the `/server` directory and run the same command again in the root directory, because React and the Express server need to run separately on different ports: one on port localhost:3001 (Express) and the other port localhost:3000 (React) in this instance. Optionally, you may run the
+in the `/server` directory and run the same script again in the root directory, because React and the Express server need to run separately on different ports: one on port localhost:3001 (Express) and the other port localhost:3000 (React) in this instance. Optionally, you may run the
 
 ```
 $ npm start
 ```
 
-command at the root directory, and it will build the React app first and then start the Express server that serves it, on the same port localhost:3001.
+script at the root directory, and it will build the React app first and then start the Express server that serves it, on the same port localhost:3001.
 
 ### Usage
 

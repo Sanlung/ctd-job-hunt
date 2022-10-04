@@ -1,3 +1,6 @@
-const notFound = (req, res) => res.status(404).send('Route does not exist')
+const path = require("path");
 
-module.exports = notFound
+const notFound = (req, res) =>
+  res.status(404).sendFile(path.join(__dirname, "..", "public", "404.html"));
+
+module.exports = notFound;
