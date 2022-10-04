@@ -3,13 +3,13 @@ import {useState, useEffect, useRef} from "react";
 const useSemiPersistentState = (key, initialState) => {
   const isMounted = useRef(false);
   const [value, setValue] = useState(
-    JSON.parse(localStorage.getItem(key)) || initialState
+    JSON.parse(sessionStorage.getItem(key)) || initialState
   );
   useEffect(() => {
     if (!isMounted.current) {
       isMounted.current = true;
     } else {
-      localStorage.setItem(key, JSON.stringify(value));
+      sessionStorage.setItem(key, JSON.stringify(value));
     }
   }, [value, key]);
 

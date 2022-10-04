@@ -6,6 +6,7 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import Authentication from "./components/auth/Authentication";
 import BuildJobTable from "./components/jobTable/BuildJobTable";
+import NotFound from "./components/layout/NotFound";
 import useSemiPersistentState from "./persistState";
 
 const App = () => {
@@ -306,6 +307,7 @@ const App = () => {
             />
           </Route>
           <Route path='/' element={<Navigate replace to='/auth/login' />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </Container>
       <Footer />

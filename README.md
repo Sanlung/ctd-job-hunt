@@ -35,7 +35,13 @@ Once you have cloned the repo, in your local project's root directory run:
 $ npm install
 ```
 
-which will install the packages necessary for running React on the front end. You need to run in the `/server` directory again:
+which will install the packages necessary for running React on the front end. Then create a `.env` (or `.env.local`) file in the root directory, in which you include reference to the REACT_APP_BASE_URL, for example, http://localhost:3001 while in development for the Express server's localhost port.
+
+```.env
+REACT_APP_BASE_URL=http://localhost:3001
+```
+
+You then need to run the install command in the `/server` directory again:
 
 ```
 $ npm install
@@ -43,19 +49,27 @@ $ npm install
 
 to install the packages necessary for the Express server on the back end.
 
-In development mode you may run:
+The app uses MongoDB database, which you may opt for a local instance or the [MongoDB Cloud](https://cloud.mongodb.com/). For the latter you then need to create a MongoDB account and a new project, and include the project credential in a `.env` file in the `/server` directory, in which you should also include a JWT_SECRET needed for the Express server, like so:
+
+```.env
+MONGODB_URI=<your_mongodb_access_token>
+JWT_SECRET=<any_long_hash_string>
+JWT_EXPIRY=<e.g.,time_in_seconds>
+```
+
+With the above set-up in place and for develpment purposes, you can then run:
 
 ```
 $ npm run dev
 ```
 
-in the `/server` directory and run the same script again in the root directory, because React and the Express server need to run separately on different ports: one on port localhost:3001 (Express) and the other port localhost:3000 (React) in this instance. Optionally, you may run the
+in the `/server` directory and run the same script again in the root directory, because React and the Express server need to run separately on different ports in develpment: one on port localhost:3001 (Express) and the other port localhost:3000 (React) in this instance. Optionally, you may run the
 
 ```
 $ npm start
 ```
 
-script at the root directory, and it will build the React app first and then start the Express server that serves it, on the same port localhost:3001.
+script at the root directory, and it will first build the React app into a `/build` folder at the root directory and then start the Express server that serves it, on port localhost:3001.
 
 ### Usage
 
