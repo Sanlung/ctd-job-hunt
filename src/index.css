@@ -1,4 +1,6 @@
-html {
+html,
+* {
+  /* outline: 1px solid red; */
   scroll-behavior: smooth;
 }
 
@@ -17,9 +19,11 @@ h1 {
 .navbar {
   background: rgb(0 112 121);
 }
+
 .navbar:last-child {
   opacity: 90%;
 }
+
 .navbar-brand {
   width: 6.5rem;
   transition: opacity 0.2s ease;
@@ -27,6 +31,65 @@ h1 {
 
 .navbar-brand:hover {
   opacity: 85%;
+}
+
+.search-box {
+  border: none;
+  max-width: 15rem;
+  background-color: #9591b4;
+}
+
+.sort-button {
+  cursor: pointer;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(199, 247, 255, 0.8),
+      rgba(199, 247, 255, 0.8)
+    ),
+    url(../public/img/sort-button.png);
+  background-position: center;
+  background-size: 2rem;
+  background-repeat: no-repeat;
+
+  transition: transform 0.2s ease;
+}
+
+.sort-button:hover {
+  transform: translateY(-0.1rem) scale(1.05);
+}
+
+.sort-button:active {
+  transform: translate(-0.1rem, 0.1rem);
+}
+
+.filter-select {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(199, 247, 255, 0.6),
+      rgba(199, 247, 255, 0.6)
+    ),
+    url(../public/img/filter-button.png);
+  background-position: center;
+  background-size: 2rem;
+  background-repeat: no-repeat;
+
+  transition: transform 0.2s ease;
+}
+
+.filter-select:hover {
+  transform: translateY(-0.1rem) scale(1.05);
+}
+
+.filter-select > select {
+  cursor: pointer;
+  max-width: 5rem;
+  overflow: hidden;
+  font-weight: bold;
+}
+.filter-select > select:focus,
+.filter-select > select:active {
+  border: none;
+  box-shadow: none;
 }
 
 .footer-link {

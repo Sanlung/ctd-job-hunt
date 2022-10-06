@@ -1,4 +1,4 @@
-import {useState, useEffect, useCallback} from "react";
+import {useState, useEffect, useCallback, useRef} from "react";
 import {Routes, Route, Navigate, useNavigate} from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Modal from "react-bootstrap/Modal";
@@ -12,7 +12,12 @@ import useSemiPersistentState from "./persistState";
 const App = () => {
   const [token, setToken] = useSemiPersistentState("token", null);
   const [user, setUser] = useSemiPersistentState("user", null);
-  const [jobs, setJobs] = useState(["loading"]);
+  const jobsRef = useRef({
+    items: ["loading"],
+    isReverse: false,
+    isFiltered: false,
+  });
+  const [jobs, setJobs] = useState(jobsRef.current);
   const [message, setMessage] = useState("");
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   let navigate = useNavigate();
@@ -47,7 +52,12 @@ const App = () => {
         const data = await response.json();
 
         if (response.status === 200) {
-          setJobs(data.jobs);
+          jobsRef.current = {
+            items: data.jobs,
+            isReverse: false,
+            isFiltered: false,
+          };
+          setJobs(jobsRef.current);
         } else {
           setMessage(data.msg);
         }
@@ -121,7 +131,11 @@ const App = () => {
   const logOut = () => {
     setToken(null);
     setUser(null);
-    setJobs(["loading"]);
+    setJobs({
+      items: ["loading"],
+      isReverse: false,
+      isFiltered: false,
+    });
     setMessage("You are logged out. Bye!");
     navigate("/auth/login");
   };
@@ -228,9 +242,67 @@ const App = () => {
     }
   };
 
+  const sortByDate = () => {
+    // sort jobs by creation date
+    jobs.isReverse
+      ? jobs.items.sort((a, b) => {
+          if (String(a.createdAt) < String(b.createdAt)) return -1;
+          if (String(a.createdAt) > String(b.createdAt)) return 1;
+          return 0;
+        })
+      : jobs.items.sort((a, b) => {
+          if (String(a.createdAt) < String(b.createdAt)) return 1;
+          if (String(a.createdAt) > String(b.createdAt)) return -1;
+          return 0;
+        });
+    // set sort result in jobs state
+    setJobs({
+      items: jobs.items,
+      isReverse: !jobs.isReverse,
+      isFiltered: jobs.isFiltered,
+    });
+  };
+
+  const filterByStatus = (status) => {
+    // filter jobs by status
+    let filtered = jobs.items.filter((job) => job.status === status);
+    // set filter result in jobs state
+    setJobs({
+      items: filtered,
+      isReverse: false,
+      isFiltered: true,
+    });
+  };
+
+  const searchContents = (searchTerm) => {
+    // search all job info for search term
+    let searchResult = jobs.items.filter((job) => {
+      for (let attr in job) {
+        if (typeof job[attr] === "string") {
+          if (job[attr].toLowerCase().includes(searchTerm.toLowerCase()))
+            return true;
+        }
+      }
+      return false;
+    });
+    // set search result in jobs state
+    setJobs({
+      items: searchResult,
+      isReverse: false,
+      isFiltered: true,
+    });
+  };
+
+  const unfilterJobs = () => setJobs(jobsRef.current);
+
   return (
     <Container fluid className='page-content min-vh-100 d-flex flex-column'>
-      <Header user={user} onLogOut={logOut} />
+      <Header
+        user={user}
+        token={token}
+        onLogOut={logOut}
+        onSearch={searchContents}
+      />
       <Container className='main-content mb-5'>
         <div className='text-center my-5'>
           <h1 className='d-inline-block px-3 py-2 bg-light rounded shadow text-secondary'>
@@ -280,6 +352,7 @@ const App = () => {
                     isNew
                     jobs={jobs}
                     onUpdate={addJob}
+                    onUnfilter={unfilterJobs}
                     onRemoveJob={removeJob}
                     onSetMessage={setMessage}
                   />
@@ -292,14 +365,17 @@ const App = () => {
               path=''
               element={
                 token ? (
-                  jobs.length ? (
+                  !jobs.items.length && !jobs.isFiltered ? (
+                    <Navigate replace to='/jobs/new' />
+                  ) : (
                     <BuildJobTable
                       jobs={jobs}
+                      onSortByDate={sortByDate}
+                      onFilter={filterByStatus}
+                      onUnfilter={unfilterJobs}
                       onRemoveJob={removeJob}
                       onSetMessage={setMessage}
                     />
-                  ) : (
-                    <Navigate replace to='/jobs/new' />
                   )
                 ) : (
                   <Navigate replace to='/auth/login' />

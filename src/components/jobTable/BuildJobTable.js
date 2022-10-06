@@ -9,9 +9,11 @@ const BuildJobTable = ({
   isNew,
   jobs,
   onUpdate,
+  onSortByDate,
+  onFilter,
+  onUnfilter,
   onRemoveJob,
   onSetMessage,
-  onSetShow,
 }) => {
   const [show, setShow] = useState(false);
   const [deleteJobId, setDeleteJobId] = useState("");
@@ -32,10 +34,15 @@ const BuildJobTable = ({
 
   return (
     <div className='shadow-lg rounded p-4 mb-5 bg-light'>
-      {jobs[0] === "loading" && (
+      {jobs.items[0] === "loading" && (
         <p className='intro h5 text-center text-secondary'>Loading ...</p>
       )}
-      {jobs.length < 1 && (
+      {jobs.items.length < 1 && jobs.isFiltered && (
+        <p className='intro h5 text-center text-secondary'>
+          You don't have any job on this status!
+        </p>
+      )}
+      {jobs.items.length < 1 && !jobs.isFiltered && (
         <p className='intro h5 text-center text-secondary'>
           Let's get started by creating your first rercord!
         </p>
@@ -45,12 +52,23 @@ const BuildJobTable = ({
         jobId={id}
         jobs={jobs}
         onUpdate={onUpdate}
+        onSortByDate={onSortByDate}
+        onFilter={onFilter}
         onShowModal={handleShow}
         onSetMessage={onSetMessage}
       />
       {typeof id === "undefined" && !isNew && (
         <Button href='/jobs/new' variant='outline-primary' size='sm'>
           <FaPlus />
+        </Button>
+      )}
+      {jobs.isFiltered && (
+        <Button
+          variant='outline-secondary'
+          size='sm'
+          className='ms-2'
+          onClick={(e) => onUnfilter()}>
+          All jobs
         </Button>
       )}
       <Modal show={show} onHide={handleClose} className=''>

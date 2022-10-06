@@ -1,30 +1,71 @@
+import {useState} from "react";
 import {Link} from "react-router-dom";
-import {Navbar, Nav, Container} from "react-bootstrap";
-import {FaUser} from "react-icons/fa";
+import {
+  Navbar,
+  Nav,
+  InputGroup,
+  Form,
+  Button,
+  Container,
+} from "react-bootstrap";
+import {FaUser, FaSearch} from "react-icons/fa";
 
-const Header = ({user, onLogOut}) => (
-  <Navbar expand='md' fixed='top' variant='dark' className='shadow'>
-    <Container>
-      <Navbar.Brand>
-        <Link to='/jobs'>
-          <img src='/img/jobhunt-logo.jpeg' alt='Job Hunt app logo' />
-        </Link>
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls='basic-navbar-nav' />
-      <Navbar.Collapse className='justify-content-end' id='basic-navbar-nav'>
-        <Nav>
-          <Navbar.Text className='text-white'>
-            <FaUser /> {user ? user.name : "Welcome"}
-          </Navbar.Text>
-          {user ? (
-            <Nav.Link onClick={(e) => onLogOut()}>Log out</Nav.Link>
-          ) : (
-            <Nav.Link href='/auth/login'>Login</Nav.Link>
-          )}
-        </Nav>
-      </Navbar.Collapse>
-    </Container>
-  </Navbar>
-);
+const Header = ({user, token, onLogOut, onSearch}) => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    onSearch(searchTerm);
+    setSearchTerm("");
+  };
+
+  return (
+    <Navbar expand='md' fixed='top' variant='dark' className='shadow'>
+      <Container>
+        <Navbar.Brand>
+          <Link to='/jobs'>
+            <img src='/img/jobhunt-logo.jpeg' alt='Job Hunt app logo' />
+          </Link>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls='basic-navbar-nav' />
+        <Navbar.Collapse className='justify-content-end' id='basic-navbar-nav'>
+          <Nav>
+            {token ? (
+              <Nav.Item className='me-3 mt-1'>
+                <Form onSubmit={handleSearch}>
+                  <InputGroup>
+                    <Button type='submit' variant='secondary' size='sm'>
+                      <FaSearch />
+                    </Button>
+                    <Form.Control
+                      className='search-box text-secondary'
+                      value={searchTerm}
+                      placeholder='Search'
+                      aria-label='searchText'
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                  </InputGroup>
+                </Form>
+              </Nav.Item>
+            ) : (
+              <></>
+            )}
+
+            <Navbar.Text className='text-white'>
+              <FaUser /> {user ? user.name : "Welcome"}
+            </Navbar.Text>
+            <Nav.Item>
+              {user ? (
+                <Nav.Link onClick={(e) => onLogOut()}>Log out</Nav.Link>
+              ) : (
+                <Nav.Link href='/auth/login'>Login</Nav.Link>
+              )}
+            </Nav.Item>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+};
 
 export default Header;

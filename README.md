@@ -89,6 +89,14 @@ To delete a record, click on the delete (trash can) button to the right of the r
 
 <p><img width="550" src="./assets/site-screenshot4.jpg" alt="Job Hunt app record table delete action"/></p>
 
+The app also provides functionalities as follows:
+
+- Use the search box on the navbar to search all fields of the records for a term.
+- Click on the Status table heading to select a status from the dropdown manual to filter the records.
+- Click on the Created table heading to sort by the dates on which the records were created, and repeat to toggle chronologically.
+
+<p><img width="550" src="./assets/site-screenshot5.jpg" alt="Job Hunt app record table filter action"/></p>
+
 The app is completed in two weeks upon an intorductory course on Node.js/Express server api. Further implementation of features such as search, sort and filter of the table data could be expected to follow. Please let me know of any bugs or imperfactions. Your input will be greatly appreciated.
 
 ### Contributor
