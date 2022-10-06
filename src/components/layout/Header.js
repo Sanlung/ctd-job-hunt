@@ -23,7 +23,7 @@ const Header = ({user, token, onLogOut, onSearch}) => {
     <Navbar expand='md' fixed='top' variant='dark' className='shadow'>
       <Container>
         <Navbar.Brand>
-          <Link to='/jobs'>
+          <Link to={token ? "/jobs" : "/auth/login"}>
             <img src='/img/jobhunt-logo.jpeg' alt='Job Hunt app logo' />
           </Link>
         </Navbar.Brand>

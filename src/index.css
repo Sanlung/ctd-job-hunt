@@ -10,6 +10,17 @@ img {
 
 h1 {
   font-family: "Mitr", sans-serif;
+  transition: all 0.2s ease;
+}
+
+h1:hover {
+  color: white;
+  background-color: #9591b4;
+  transform: translate(-0.2rem) scale(1.05);
+}
+
+h1:active {
+  transform: translate(-0.1rem, 0.1rem);
 }
 
 .intro {
@@ -26,11 +37,16 @@ h1 {
 
 .navbar-brand {
   width: 6.5rem;
-  transition: opacity 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .navbar-brand:hover {
   opacity: 85%;
+  transform: translate(-0.2rem) scale(1.05);
+}
+
+.navbar-brand:active {
+  transform: translate(-0.1rem, 0.1rem);
 }
 
 .search-box {
