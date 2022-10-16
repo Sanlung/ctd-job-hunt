@@ -21,7 +21,10 @@ const LoginForm = ({onLogin, onSetMessage}) => {
 
   return (
     <>
-      <Form className='mt-5 d-flex flex-column' onSubmit={handleLogin}>
+      <Form
+        role='presentation'
+        className='mt-5 d-flex flex-column'
+        onSubmit={handleLogin}>
         <p className='intro h4 text-secondary mb-4'>
           Track Your Job Applications and Keep the Status Up to Date ⏤
         </p>

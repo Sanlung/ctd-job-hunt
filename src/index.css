@@ -1,6 +1,4 @@
-html,
-* {
-  /* outline: 1px solid red; */
+html {
   scroll-behavior: smooth;
 }
 
@@ -17,10 +15,6 @@ h1:hover {
   color: white;
   background-color: #9591b4;
   transform: translate(-0.2rem) scale(1.05);
-}
-
-h1:active {
-  transform: translate(-0.1rem, 0.1rem);
 }
 
 .intro {

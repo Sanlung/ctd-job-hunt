@@ -45,7 +45,7 @@ const App = () => {
         const response = await fetch(`${BASE_URL}/api/v1/jobs`, {
           method: "GET",
           headers: {
-            "Content-Type": "application-json",
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });

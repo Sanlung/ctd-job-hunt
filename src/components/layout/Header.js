@@ -1,5 +1,4 @@
 import {useState} from "react";
-import {Link} from "react-router-dom";
 import {
   Navbar,
   Nav,
@@ -23,16 +22,16 @@ const Header = ({user, token, onLogOut, onSearch}) => {
     <Navbar expand='md' fixed='top' variant='dark' className='shadow'>
       <Container>
         <Navbar.Brand>
-          <Link to={token ? "/jobs" : "/auth/login"}>
+          <Nav.Link href={token ? "/jobs" : "/auth/login"}>
             <img src='/img/jobhunt-logo.jpeg' alt='Job Hunt app logo' />
-          </Link>
+          </Nav.Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse className='justify-content-end' id='basic-navbar-nav'>
           <Nav>
             {token ? (
               <Nav.Item className='me-3 mt-1'>
-                <Form onSubmit={handleSearch}>
+                <Form role='search' onSubmit={handleSearch}>
                   <InputGroup>
                     <Button type='submit' variant='secondary' size='sm'>
                       <FaSearch />
@@ -41,7 +40,7 @@ const Header = ({user, token, onLogOut, onSearch}) => {
                       className='search-box text-secondary'
                       value={searchTerm}
                       placeholder='Search'
-                      aria-label='searchText'
+                      aria-label='searchbox'
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
                   </InputGroup>

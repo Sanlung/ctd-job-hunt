@@ -33,7 +33,7 @@ const SignUpForm = ({onSignUp, onSetMessage}) => {
 
   return (
     <>
-      <Form onSubmit={handleSignUp}>
+      <Form role='presentation' onSubmit={handleSignUp}>
         <InputWithLabel
           isFocused
           name='username'
