@@ -25,7 +25,9 @@
 .firebase/
 .github/
 firebase.json
+firebase-debug.log*
 
+# npm - yarn
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

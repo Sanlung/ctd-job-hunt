@@ -314,17 +314,28 @@ const App = () => {
             <Route
               path='register'
               element={
-                <Authentication onSignUp={register} onSetMessage={setMessage} />
+                token ? (
+                  <Navigate replace to='/jobs' />
+                ) : (
+                  <Authentication
+                    onSignUp={register}
+                    onSetMessage={setMessage}
+                  />
+                )
               }
             />
             <Route
               path='login'
               element={
-                <Authentication
-                  isLogin
-                  onLogin={login}
-                  onSetMessage={setMessage}
-                />
+                token ? (
+                  <Navigate replace to='/jobs' />
+                ) : (
+                  <Authentication
+                    isLogin
+                    onLogin={login}
+                    onSetMessage={setMessage}
+                  />
+                )
               }
             />
             <Route path='' element={<NotFound />} />

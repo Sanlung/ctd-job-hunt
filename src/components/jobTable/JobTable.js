@@ -71,6 +71,7 @@ const JobTable = ({
         )}
         {isNew && (
           <JobTableForm
+            isNew
             job={{}}
             onUpdate={onUpdate}
             onSetMessage={onSetMessage}

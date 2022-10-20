@@ -14,8 +14,10 @@ const Header = ({user, token, onLogOut, onSearch}) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    onSearch(searchTerm);
-    setSearchTerm("");
+    if (searchTerm !== "") {
+      onSearch(searchTerm);
+      setSearchTerm("");
+    }
   };
 
   return (

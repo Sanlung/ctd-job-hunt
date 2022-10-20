@@ -4,7 +4,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import {FaPlus, FaWindowClose} from "react-icons/fa";
 import JobTableInput from "./JobTableInput";
 
-const JobTableForm = ({job, onUpdate, onSetMessage}) => {
+const JobTableForm = ({isNew, job, onUpdate, onSetMessage}) => {
   const [company, setCompany] = useState(job.company || "");
   const [position, setPosition] = useState(job.position || "");
   const [location, setLocation] = useState(job.location || "");
@@ -27,7 +27,7 @@ const JobTableForm = ({job, onUpdate, onSetMessage}) => {
   const newRowRef = useRef();
 
   useEffect(() => {
-    if (newRowRef.current)
+    if (isNew && newRowRef.current)
       newRowRef.current.scrollIntoView({behavior: "smooth"});
   });
 
