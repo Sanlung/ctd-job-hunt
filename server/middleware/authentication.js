@@ -16,7 +16,7 @@ const authenticateUser = async (req, res, next) => {
     req.user = {userId: payload.userId, username: payload.username};
 
     // alternative -- use User
-    // const user = User.findById(payload.id).select("-password");
+    // const user = User.findById(payload.userId).select("-password");
     // req.user = user;
 
     next();
