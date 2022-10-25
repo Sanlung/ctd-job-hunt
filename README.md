@@ -9,9 +9,9 @@
 
 ## About
 
-Job Hunt, a job application oraganizer-tracker, is a MERN stack web app completed to fulfill the requirement of the Code the Dream School, Orange Alpaca Node.js/Express full-stack curriculum. The app uses Node.js and the Express framework for back-end api and MongoDB for data storage. A React.js front end bootstrapped with Create React App serves to interact with the client.
+Job Hunt, a job application oraganizer-tracker, is a MERN stack web app completed to fulfill the requirement of the Code the Dream School, Orange Alpaca Node.js/Express full-stack curriculum. The app uses Node.js and the Express framework for back-end API and MongoDB for data storage. A React.js front end bootstrapped with Create React App serves to interact with the client.
 
-This repo contains the development version of the app subject to further revisions and improvements and may be cloned for such purposes or simply for fun. All suggestions and PRs are welcome. The production version of the app is served from Heroku for the back end and Firebase for the React front end.
+This repo contains the development version of the app subject to further revisions and improvements and may be cloned for such purposes or simply for fun. All suggestions and PRs are welcome. The production version of the app is deployed on Firebase [here](https://job-hunt-app-ebfa8.web.app/) with back end served from Heroku.
 
 The following assumes you're using MacOS or Linux, and have Node.js installed (which comes with NPM package manager). For Windows users or those who use yarn or other package managers please use the equivalent commands.
 
@@ -92,18 +92,18 @@ To delete a record, click on the delete (trash can) button to the right of the r
 The app also provides functionalities as follows:
 
 - Use the search box on the navbar to search all fields of the records for a term.
-- Click on the Status table heading to select an item from the dropdown manual to filter the records by status.
-- Click on the Created table heading to sort by the dates on which the records were created, and repeat to toggle chronologically.
+- Click on the Status column heading to select an item from the dropdown manual to filter the records by status.
+- Click on the Created column heading to sort by the dates on which the records were created, and repeat to toggle chronologically.
 
 <p><img width="550" src="./assets/site-screenshot5.jpg" alt="Job Hunt app record table filter action"/></p>
 
 ### Testing
 
-Create React App comes out of the box with Jest as its test runner and React Testing Library for component testing. As Jest is already included in the project (i.e., in the root `/node_modules`), it is used as the server-side test runner as well with the SuperTest library for testing the api calls.
+Create React App comes out of the box with Jest as its test runner and React Testing Library for component testing. As Jest is already included in the project (i.e., in the root `/node_modules`), it is used as the server-side test runner as well with the SuperTest library for testing the API calls.
 
 ### Suggestions
 
-The app is completed in two weeks upon an intorductory course on Node.js/Express server api. Please let me know of any bugs or imperfections. Your input will be greatly appreciated.
+The app is completed in two weeks upon an intorductory course on Node.js/Express server API. Please let me know of any bugs or imperfections. Your input will be greatly appreciated.
 
 ### Contributor
 

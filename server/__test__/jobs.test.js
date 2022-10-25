@@ -23,7 +23,7 @@ describe("Jobs", () => {
     it("should not fetch the job entries if JWT-token is invalid", async () => {
       const response = await request(baseURL)
         .get("/jobs")
-        .set("Authorization", `Bearer $token.slice(1)}`);
+        .set("Authorization", `Bearer ${token.slice(1)}`);
 
       expect(response.status).toEqual(401);
       expect(response.body.msg).toEqual("Authentication invalid.");
@@ -53,7 +53,7 @@ describe("Jobs", () => {
     it("should not create a job entry if JWT-token is invalid", async () => {
       const response = await request(baseURL)
         .post("/jobs")
-        .set("Authorization", `Bearer $token.slice(1)}`)
+        .set("Authorization", `Bearer ${token.slice(1)}`)
         .send({
           company: "Zoom",
           position: "Full-stack iOS Engineer",
