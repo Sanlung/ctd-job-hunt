@@ -35,9 +35,6 @@ const Header = ({user, token, onLogOut, onSearch}) => {
               <Nav.Item className='me-3 mt-1'>
                 <Form role='search' onSubmit={handleSearch}>
                   <InputGroup>
-                    <Button type='submit' variant='secondary' size='sm'>
-                      <FaSearch />
-                    </Button>
                     <Form.Control
                       className='search-box text-secondary'
                       value={searchTerm}
@@ -45,6 +42,9 @@ const Header = ({user, token, onLogOut, onSearch}) => {
                       aria-label='searchbox'
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
+                    <Button type='submit' variant='secondary' size='sm'>
+                      <FaSearch />
+                    </Button>
                   </InputGroup>
                 </Form>
               </Nav.Item>
