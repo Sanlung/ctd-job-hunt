@@ -151,7 +151,7 @@ const App = () => {
     status
   ) => {
     try {
-      const response = await fetch(`${BASE_URL}/api/v1/jobs/`, {
+      const response = await fetch(`${BASE_URL}/api/v1/jobs`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
