@@ -11,7 +11,7 @@
 
 Job Hunt, a job application oraganizer-tracker, is a MERN stack web app completed to fulfill the requirement of the Code the Dream School, Orange Alpaca Node.js/Express full-stack curriculum. The app uses Node.js and the Express framework for back-end API and MongoDB for data storage. A React.js front end bootstrapped with Create React App serves to interact with the client.
 
-This repo contains the development version of the app subject to further revisions and improvements and may be cloned for such purposes or simply for fun. All suggestions and PRs are welcome. The production version of the app is deployed [here](https://ctdjobhuntapp.onrender.com/) on render.com.
+This repo contains the development version of the app subject to further revisions and improvements and may be cloned for such purposes or simply for fun. All suggestions and PRs are welcome. The production version of the app is deployed [here](https://ctdjobhuntapp.web.app/) on Firebase.
 
 The following assumes you're using MacOS or Linux, and have Node.js installed (which comes with NPM package manager). For Windows users or those who use yarn or other package managers please use the equivalent commands.
 
