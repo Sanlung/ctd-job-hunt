@@ -50,6 +50,22 @@ const BuildJobTable = ({
               Let's get started by creating your first record!
             </p>
           )}
+          <p className='d-flex justify-content-end mb-4'>
+            {jobs.isFiltered && (
+              <Button
+                variant='outline-secondary'
+                size='sm'
+                className='me-2'
+                onClick={(e) => onUnfilter()}>
+                All jobs
+              </Button>
+            )}
+            {typeof id === "undefined" && !isNew && (
+              <Button href='/jobs/new' variant='outline-primary' size='sm'>
+                <FaPlus />
+              </Button>
+            )}
+          </p>
           <JobTable
             isNew={isNew}
             jobId={id}
@@ -60,20 +76,6 @@ const BuildJobTable = ({
             onShowModal={handleShow}
             onSetMessage={onSetMessage}
           />
-          {typeof id === "undefined" && !isNew && (
-            <Button href='/jobs/new' variant='outline-primary' size='sm'>
-              <FaPlus />
-            </Button>
-          )}
-          {jobs.isFiltered && (
-            <Button
-              variant='outline-secondary'
-              size='sm'
-              className='ms-2'
-              onClick={(e) => onUnfilter()}>
-              All jobs
-            </Button>
-          )}
           <Modal show={show} onHide={handleClose} className=''>
             <Modal.Header closeButton>
               <Modal.Title>About to Delete Record</Modal.Title>

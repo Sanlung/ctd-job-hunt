@@ -60,20 +60,20 @@ const JobTable = ({
         </tr>
       </thead>
       <tbody className='table-group-divider'>
+        {isNew && (
+          <JobTableForm
+            isNew
+            job={{}}
+            onUpdate={onUpdate}
+            onSetMessage={onSetMessage}
+          />
+        )}
         {jobs.items.length > 0 && (
           <JobTableRows
             jobId={jobId}
             jobs={jobs.items}
             onUpdate={onUpdate}
             onShowModal={onShowModal}
-            onSetMessage={onSetMessage}
-          />
-        )}
-        {isNew && (
-          <JobTableForm
-            isNew
-            job={{}}
-            onUpdate={onUpdate}
             onSetMessage={onSetMessage}
           />
         )}

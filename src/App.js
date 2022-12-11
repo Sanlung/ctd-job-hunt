@@ -54,7 +54,7 @@ const App = () => {
         if (response.status === 200) {
           jobsRef.current = {
             items: data.jobs,
-            isReverse: false,
+            isReverse: true,
             isFiltered: false,
           };
           setJobs(jobsRef.current);
@@ -243,21 +243,23 @@ const App = () => {
   };
 
   const sortByDate = () => {
-    // sort jobs by creation date
+    // make a deep clone of jobs array to sort
+    const sorted = JSON.parse(JSON.stringify(jobs.items));
+    // sort jobs array by creation date
     jobs.isReverse
-      ? jobs.items.sort((a, b) => {
+      ? sorted.sort((a, b) => {
           if (String(a.createdAt) < String(b.createdAt)) return -1;
           if (String(a.createdAt) > String(b.createdAt)) return 1;
           return 0;
         })
-      : jobs.items.sort((a, b) => {
+      : sorted.sort((a, b) => {
           if (String(a.createdAt) < String(b.createdAt)) return 1;
           if (String(a.createdAt) > String(b.createdAt)) return -1;
           return 0;
         });
-    // set sort result in jobs state
+    // reset jobs as sorted, toggle isReverse
     setJobs({
-      items: jobs.items,
+      items: sorted,
       isReverse: !jobs.isReverse,
       isFiltered: jobs.isFiltered,
     });
@@ -269,7 +271,7 @@ const App = () => {
     // set filter result in jobs state
     setJobs({
       items: filtered,
-      isReverse: false,
+      isReverse: jobs.isReverse,
       isFiltered: true,
     });
   };
@@ -288,7 +290,7 @@ const App = () => {
     // set search result in jobs state
     setJobs({
       items: searchResult,
-      isReverse: false,
+      isReverse: jobs.isReverse,
       isFiltered: true,
     });
   };

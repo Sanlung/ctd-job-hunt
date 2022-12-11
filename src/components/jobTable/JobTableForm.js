@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from "react";
+import {useState} from "react";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import {FaPlus, FaWindowClose} from "react-icons/fa";
@@ -24,12 +24,12 @@ const JobTableForm = ({isNew, job, onUpdate, onSetMessage}) => {
       )}`
     : "";
 
-  const newRowRef = useRef();
+  // const newRowRef = useRef();
 
-  useEffect(() => {
-    if (isNew && newRowRef.current)
-      newRowRef.current.scrollIntoView({behavior: "smooth"});
-  });
+  // useEffect(() => {
+  //   if (isNew && newRowRef.current)
+  //     newRowRef.current.scrollIntoView({behavior: "smooth"});
+  // });
 
   const handleUpdateJob = (e) => {
     e.preventDefault();
@@ -49,7 +49,8 @@ const JobTableForm = ({isNew, job, onUpdate, onSetMessage}) => {
   };
 
   return (
-    <tr ref={newRowRef}>
+    // <tr ref={newRowRef}>
+    <tr>
       <td>
         <JobTableInput
           isFocused
