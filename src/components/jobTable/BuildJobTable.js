@@ -60,7 +60,7 @@ const BuildJobTable = ({
                 size='sm'
                 className='me-2'
                 onClick={(e) => onUnfilter()}>
-                All jobs
+                Job List
               </Button>
             )}
             {typeof id === "undefined" && !isNew && (
