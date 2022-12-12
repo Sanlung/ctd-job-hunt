@@ -4,16 +4,19 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import {FaPlus} from "react-icons/fa";
 import JobTable from "./JobTable";
+import JobTablePagination from "./JobTablePagination";
 
 const BuildJobTable = ({
   isNew,
   jobs,
+  pageNum,
   onUpdate,
   onSortByDate,
   onFilter,
   onUnfilter,
   onRemoveJob,
   onSetMessage,
+  onTurnPage,
 }) => {
   const [show, setShow] = useState(false);
   const [deleteJobId, setDeleteJobId] = useState("");
@@ -76,6 +79,13 @@ const BuildJobTable = ({
             onShowModal={handleShow}
             onSetMessage={onSetMessage}
           />
+          <div className='d-flex justify-content-center mb-0'>
+            <JobTablePagination
+              jobs={jobs}
+              pageNum={pageNum}
+              onTurnPage={onTurnPage}
+            />
+          </div>
           <Modal show={show} onHide={handleClose} className=''>
             <Modal.Header closeButton>
               <Modal.Title>About to Delete Record</Modal.Title>

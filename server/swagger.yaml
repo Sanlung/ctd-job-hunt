@@ -87,12 +87,18 @@ paths:
     get:
       tags:
         - Jobs
-      summary: Get All Jobs
-      operationId: GetAllJobs
-      parameters: []
+      summary: Get 10 Jobs
+      operationId: Get10Jobs
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: true
+          description: The page number
       responses:
         "200":
-          description: Fetched all jobs
+          description: Fetched 10 & total count of jobs
           headers: {}
       deprecated: false
       security:

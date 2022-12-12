@@ -12,9 +12,9 @@ describe("Jobs", () => {
     token = response.body.token;
   });
 
-  describe("GET /jobs", () => {
+  describe("GET /jobs?page={n}", () => {
     it("should require authentication with JWT-token", async () => {
-      const response = await request(baseURL).get("/jobs");
+      const response = await request(baseURL).get("/jobs?page=1");
 
       expect(response.status).toEqual(401);
       expect(response.body.msg).toEqual("Authentication invalid.");
@@ -22,16 +22,16 @@ describe("Jobs", () => {
 
     it("should not fetch the job entries if JWT-token is invalid", async () => {
       const response = await request(baseURL)
-        .get("/jobs")
+        .get("/jobs?page=1")
         .set("Authorization", `Bearer ${token.slice(1)}`);
 
       expect(response.status).toEqual(401);
       expect(response.body.msg).toEqual("Authentication invalid.");
     });
 
-    it("should fetch all the job entries when authenticated", async () => {
+    it("should fetch a number of job entries when authenticated", async () => {
       const response = await request(baseURL)
-        .get("/jobs")
+        .get("/jobs?page=1")
         .set("Authorization", `Bearer ${token}`);
 
       expect(response.status).toEqual(200);

@@ -12,8 +12,10 @@ import useSemiPersistentState from "./persistState";
 const App = () => {
   const [token, setToken] = useSemiPersistentState("token", null);
   const [user, setUser] = useSemiPersistentState("user", null);
+  const [pageNum, setPageNum] = useSemiPersistentState("page", 1);
   const jobsRef = useRef({
     items: ["loading"],
+    count: 0,
     isReverse: false,
     isFiltered: false,
   });
@@ -38,22 +40,26 @@ const App = () => {
     if (message) handleShow();
   }, [message]);
 
-  // Get all the jobs from database
+  // Get 10 jobs from database per jobs.page
   const getJobs = useCallback(async () => {
     if (token) {
       try {
-        const response = await fetch(`${BASE_URL}/api/v1/jobs`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `${BASE_URL}/api/v1/jobs?page=${pageNum}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         const data = await response.json();
 
         if (response.status === 200) {
           jobsRef.current = {
             items: data.jobs,
+            count: data.count,
             isReverse: true,
             isFiltered: false,
           };
@@ -65,7 +71,7 @@ const App = () => {
         setMessage("A communications error occurred.");
       }
     }
-  }, [token, BASE_URL]);
+  }, [token, BASE_URL, pageNum]);
 
   useEffect(() => {
     getJobs();
@@ -131,8 +137,10 @@ const App = () => {
   const logOut = () => {
     setToken(null);
     setUser(null);
+    setPageNum(1);
     setJobs({
       items: ["loading"],
+      count: 0,
       isReverse: false,
       isFiltered: false,
     });
@@ -260,6 +268,7 @@ const App = () => {
     // reset jobs as sorted, toggle isReverse
     setJobs({
       items: sorted,
+      count: jobs.count,
       isReverse: !jobs.isReverse,
       isFiltered: jobs.isFiltered,
     });
@@ -271,6 +280,7 @@ const App = () => {
     // set filter result in jobs state
     setJobs({
       items: filtered,
+      count: jobs.count,
       isReverse: jobs.isReverse,
       isFiltered: true,
     });
@@ -290,6 +300,7 @@ const App = () => {
     // set search result in jobs state
     setJobs({
       items: searchResult,
+      count: jobs.count,
       isReverse: jobs.isReverse,
       isFiltered: true,
     });
@@ -349,8 +360,10 @@ const App = () => {
                 token ? (
                   <BuildJobTable
                     jobs={jobs}
+                    pageNum={pageNum}
                     onUpdate={updateJob}
                     onRemoveJob={removeJob}
+                    onTurnPage={setPageNum}
                   />
                 ) : (
                   <Navigate replace to='/auth/login' />
@@ -364,10 +377,12 @@ const App = () => {
                   <BuildJobTable
                     isNew
                     jobs={jobs}
+                    pageNum={pageNum}
                     onUpdate={addJob}
                     onUnfilter={unfilterJobs}
                     onRemoveJob={removeJob}
                     onSetMessage={setMessage}
+                    onTurnPage={setPageNum}
                   />
                 ) : (
                   <Navigate replace to='/auth/login' />
@@ -383,11 +398,13 @@ const App = () => {
                   ) : (
                     <BuildJobTable
                       jobs={jobs}
+                      pageNum={pageNum}
                       onSortByDate={sortByDate}
                       onFilter={filterByStatus}
                       onUnfilter={unfilterJobs}
                       onRemoveJob={removeJob}
                       onSetMessage={setMessage}
+                      onTurnPage={setPageNum}
                     />
                   )
                 ) : (
